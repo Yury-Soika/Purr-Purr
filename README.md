@@ -1,5 +1,9 @@
 # Purr Purr
 
+Live preview: https://demo.plexrs.com/purr-purr/
+
+Repository: https://github.com/Yury-Soika/Purr-Purr
+
 Independent Polish/English landing-page concept for Purr Purr in Warsaw. Next.js App Router, TypeScript and Tailwind CSS 4. No booking backend, analytics, or third-party image/font dependencies.
 
 ## Run
@@ -32,3 +36,7 @@ From the sibling `plex-demo` project, `npm run build:landings -- purr-purr` rebu
 The demo explicitly identifies itself as an independent, unofficial concept and uses noindex metadata. Current opening hours are intentionally not asserted because public listings conflict. Contact links open the real café's phone, social profiles, or directions. No reservation is submitted by the site.
 
 Local fonts are Inter and Playfair Display, distributed under the SIL Open Font License. See `public/fonts/OFL-*.txt`.
+
+## Verified release — 2026-09-29
+
+Production build, ESLint and TypeScript pass. Browser checks passed locally and on the live domain: Polish/English copy and document language, all five menu filters, PDF download, phone link, mobile navigation, loaded images, hub card, and no horizontal overflow at 320, 390, 768 and 1024 px. No JavaScript errors or failed HTTP responses were observed in those flows. Existing hub project routes also returned HTTP 200.
