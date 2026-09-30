@@ -12,7 +12,6 @@ const instagram = "https://www.instagram.com/purrpurr.wawa/";
 const facebook = "https://www.facebook.com/Purr.Purr.Cat.Cafe.Warsaw/";
 const maps = "https://www.google.com/maps/search/?api=1&query=Purr+Purr+Pokorna+2+Warszawa";
 const storageKey = "purr_purr_lang";
-const editorialMenuImages = new Set(["small-bibimbap", "tornado-bibimbap", "stir-fry-soba", "mandu", "onigiri", "kimbap-roll", "flower-latte-gold", "flower-latte-red"]);
 const lunchSets = [
   { image: "lunch-bibimbap", label: ["Poniedziałek · Bibimbap", "Monday · Bibimbap", "Понедельник · Пибимбап"] },
   { image: "lunch-kimbap", label: ["Wtorek · Kimbap", "Tuesday · Kimbap", "Вторник · Кимбап"] },
@@ -113,7 +112,7 @@ export default function Home() {
         <div className="menu-items" aria-live="polite" aria-atomic="true">{menu[category].map(item => {
           const title = ru && item.ru ? item.ru : en && item.en ? item.en : item.name;
           return <article className={`menu-item${item.images?.length ? " menu-item-with-images" : ""}`} key={item.name}>
-            {item.images?.length ? <div className={`menu-photo-grid menu-photo-grid-${item.images.length}`}>{item.images.map((imageName, index) => <div className={`menu-photo menu-photo-${imageName}${editorialMenuImages.has(imageName) ? " menu-photo-editorial" : ""}`} key={imageName}><div className="menu-photo-art"><Image src={`${base}/images/menu/${imageName}.webp`} alt={`${title}${item.images && item.images.length > 1 ? ` · ${index + 1}` : ""}`} fill sizes="(max-width: 760px) 90vw, 45vw" /></div>{item.images && item.images.length > 1 ? <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span> : null}</div>)}</div> : null}
+            {item.images?.length ? <div className={`menu-photo-grid menu-photo-grid-${item.images.length}`}>{item.images.map((imageName, index) => <div className="menu-photo" key={imageName}><Image src={`${base}/images/menu/${imageName}.webp`} alt={`${title}${item.images && item.images.length > 1 ? ` · ${index + 1}` : ""}`} fill sizes="(max-width: 760px) 90vw, 45vw" /></div>)}</div> : null}
             <div className="menu-item-copy"><div className="menu-item-title"><h3>{title}</h3><span>{item.price} <small>zł</small></span></div><p>{item.description[languageIndex]}</p></div>
           </article>;
         })}</div>

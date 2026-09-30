@@ -21,7 +21,7 @@ The site now includes all 34 distinct food and drink photographs embedded in the
 - Page 8: soft ice cream, two affogato variants and four Cloud Float variants (xrefs 863, 868, 872, 876, 881, 886, 891).
 - Page 9: three floral latte photographs (xrefs 998, 1003, 1008).
 
-The extracted photographs are trimmed, resized only when larger than the site needs, and encoded as WebP. A few source images end at the PDF artwork boundary; the site presents those as rounded editorial close-ups so the source crop is intentional rather than exposing a hard cutout edge. The unchanged PDF remains the authoritative supplied menu; prices are not asserted as live.
+The extracted photographs are trimmed, resized only when larger than the site needs, and encoded as WebP. The unchanged PDF remains the authoritative supplied menu; prices are not asserted as live.
 
 ## Public contact sources
 
