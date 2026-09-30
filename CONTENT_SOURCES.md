@@ -10,7 +10,7 @@ User supplied `/Users/puma/Desktop/f8d68c1b-9cb8-4ce3-b474-7518d0e04f7f.pdf` (21
 - Pages 4–10 and 14–20: food, drinks, desserts and prices. Drinks columns were visually checked on page 9 because extracted text does not preserve their order.
 - Page 9: HAYB coffee and Moya Matcha.
 
-The site now includes all 34 distinct food and drink photographs embedded in the Polish half of the supplied menu. The repeated English pages reuse the same embedded image objects and are not duplicated. Decorative backgrounds, paw prints, lines, utensils and title artwork were excluded from the food gallery.
+The site now includes all 34 distinct food and drink photographs embedded in the Polish half of the supplied menu. The repeated English pages reuse the same embedded image objects and are not duplicated. Decorative backgrounds, paw prints, lines, utensils and title artwork were excluded; each real food or drink photo appears with its matching item in the visual menu.
 
 - Page 1: taiyaki (xref 29).
 - Page 3: five weekday lunch sets (xrefs 281, 287, 297, 301, 384).

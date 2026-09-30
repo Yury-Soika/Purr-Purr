@@ -6,13 +6,19 @@ import { ArrowDown, ArrowDownToLine, ArrowUpRight, Coffee, Heart, MapPin, Menu a
 import { categories, menu, type Category, type Lang } from "./menu";
 import { HTML_LANG, LANG_LABELS, LANGS } from "./i18n/types";
 import { ruVocabulary } from "./i18n/ru";
-import { galleryCategories, galleryItems, type GalleryCategory } from "./gallery";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || process.env.DEMO_BASE_PATH || "";
 const instagram = "https://www.instagram.com/purrpurr.wawa/";
 const facebook = "https://www.facebook.com/Purr.Purr.Cat.Cafe.Warsaw/";
 const maps = "https://www.google.com/maps/search/?api=1&query=Purr+Purr+Pokorna+2+Warszawa";
 const storageKey = "purr_purr_lang";
+const lunchSets = [
+  { image: "lunch-bibimbap", label: ["Poniedziałek · Bibimbap", "Monday · Bibimbap", "Понедельник · Пибимбап"] },
+  { image: "lunch-kimbap", label: ["Wtorek · Kimbap", "Tuesday · Kimbap", "Вторник · Кимбап"] },
+  { image: "lunch-soba", label: ["Środa · Soba", "Wednesday · Soba", "Среда · Соба"] },
+  { image: "lunch-mandu", label: ["Czwartek · Mandu", "Thursday · Mandu", "Четверг · Манду"] },
+  { image: "lunch-purramen", label: ["Piątek · Purramen", "Friday · Purramen", "Пятница · Purramen"] },
+] as const;
 
 function Cat({ className = "" }: { className?: string }) {
   return <svg className={className} viewBox="0 0 320 200" fill="none" aria-hidden="true">
@@ -29,7 +35,6 @@ function Cat({ className = "" }: { className?: string }) {
 export default function Home() {
   const [lang, setLang] = useState<Lang>("pl");
   const [category, setCategory] = useState<Category>("bowls");
-  const [galleryCategory, setGalleryCategory] = useState<GalleryCategory>("all");
   const [navOpen, setNavOpen] = useState(false);
   const en = lang === "en";
   const ru = lang === "ru";
@@ -104,16 +109,16 @@ export default function Home() {
       <section id="menu" className="menu-section shell section-pad">
         <div className="section-heading"><div><p className="eyebrow">{t("PROSTO Z NASZEJ KARTY", "STRAIGHT FROM OUR MENU")}</p><h2>{t("Coś dobrego", "Something good")}<br /><em>{t("dla każdego nastroju.", "for every mood.")}</em></h2></div><a className="button outline" href={`${base}/menu-purr-purr.pdf`} target="_blank" rel="noopener noreferrer">{t("Pełne menu PDF · PL / EN", "Full PDF menu · PL / EN")} <ArrowDownToLine size={17} /></a></div>
         <div className="menu-tabs" role="group" aria-label={t("Kategorie menu", "Menu categories")}>{categories.map(c => <button key={c.id} aria-pressed={category === c.id} onClick={() => setCategory(c.id)}>{c.label[languageIndex]}</button>)}</div>
-        <div className="menu-items" aria-live="polite" aria-atomic="true">{menu[category].map(item => <article className="menu-item" key={item.name}><div className="menu-item-title"><h3>{ru && item.ru ? item.ru : en && item.en ? item.en : item.name}</h3><span>{item.price} <small>zł</small></span></div><p>{item.description[languageIndex]}</p></article>)}</div>
+        <div className="menu-items" aria-live="polite" aria-atomic="true">{menu[category].map(item => {
+          const title = ru && item.ru ? item.ru : en && item.en ? item.en : item.name;
+          return <article className={`menu-item${item.images?.length ? " menu-item-with-images" : ""}`} key={item.name}>
+            {item.images?.length ? <div className={`menu-photo-grid menu-photo-grid-${item.images.length}`}>{item.images.map((imageName, index) => <div className="menu-photo" key={imageName}><Image src={`${base}/images/menu/${imageName}.webp`} alt={`${title}${item.images && item.images.length > 1 ? ` · ${index + 1}` : ""}`} fill sizes="(max-width: 760px) 90vw, 45vw" /></div>)}</div> : null}
+            <div className="menu-item-copy"><div className="menu-item-title"><h3>{title}</h3><span>{item.price} <small>zł</small></span></div><p>{item.description[languageIndex]}</p></div>
+          </article>;
+        })}</div>
         <p className="menu-disclaimer">{t("Dania, warianty i ceny przenieśliśmy z dostarczonej karty Purr Purr. Dostępność potwierdź na miejscu. O alergeny zapytaj obsługę.", "Dishes, options and prices were transferred from the supplied Purr Purr menu. Confirm availability at the café and ask the team about allergens.")}</p>
-        <div className="lunch-banner"><div className="lunch-symbol"><Coffee size={31} strokeWidth={1.2} /></div><div><p className="eyebrow">{t("PONIEDZIAŁEK–PIĄTEK · 12:00–15:00", "MONDAY–FRIDAY · 12:00–15:00")}</p><h3>{t("Przerwa na lunch? Mamy pomysł.", "Lunch break? We have a little idea.")}</h3><p>{t("Danie dnia + miso + Ice Tea + lody. Wersja wege lub mięsna.", "Daily main + miso + Ice Tea + ice cream. Veggie or meat option.")}</p></div><div className="lunch-price">41 / 43 <span>zł</span><small>{t("wege / mięsny", "veggie / meat")}</small></div><a href={`${base}/menu-purr-purr.pdf#page=3`} target="_blank" rel="noopener noreferrer" aria-label={t("Zobacz zestawy lunchowe w PDF", "See lunch sets in the PDF")}><ArrowUpRight size={27} /></a></div>
+        <div className="lunch-banner"><div className="lunch-main"><div className="lunch-symbol"><Coffee size={31} strokeWidth={1.2} /></div><div><p className="eyebrow">{t("PONIEDZIAŁEK–PIĄTEK · 12:00–15:00", "MONDAY–FRIDAY · 12:00–15:00")}</p><h3>{t("Przerwa na lunch? Mamy pomysł.", "Lunch break? We have a little idea.")}</h3><p>{t("Danie dnia + miso + Ice Tea + lody. Wersja wege lub mięsna.", "Daily main + miso + Ice Tea + ice cream. Veggie or meat option.")}</p></div><div className="lunch-price">41 / 43 <span>zł</span><small>{t("wege / mięsny", "veggie / meat")}</small></div><a href={`${base}/menu-purr-purr.pdf#page=3`} target="_blank" rel="noopener noreferrer" aria-label={t("Zobacz zestawy lunchowe w PDF", "See lunch sets in the PDF")}><ArrowUpRight size={27} /></a></div><div className="lunch-photos">{lunchSets.map(set => <figure className="lunch-photo" key={set.image}><Image src={`${base}/images/menu/${set.image}.webp`} alt={set.label[languageIndex]} fill sizes="(max-width: 760px) 50vw, 20vw" /><figcaption>{set.label[languageIndex]}</figcaption></figure>)}</div></div>
       </section>
-
-      <section className="dish-gallery section-pad" aria-labelledby="dish-gallery-title"><div className="shell">
-        <div className="section-heading gallery-heading"><div><p className="eyebrow">{t("CAŁE MENU W OBRAZACH", "THE WHOLE MENU IN PICTURES")}</p><h2 id="dish-gallery-title">{t("Zobacz, na co masz ochotę.", "See what you’re in the mood for.")}</h2></div><p>{t("Wszystkie fotografie pochodzą z oryginalnej karty Purr Purr.", "Every photograph comes from the original Purr Purr menu.")}</p></div>
-        <div className="gallery-tabs" role="group" aria-label={t("Kategorie menu", "Menu categories")}>{galleryCategories.map(item => <button key={item.id} aria-pressed={galleryCategory === item.id} onClick={() => setGalleryCategory(item.id)}>{item.label[languageIndex]}</button>)}</div>
-        <div className="gallery-grid" aria-live="polite">{galleryItems.filter(item => galleryCategory === "all" || item.category === galleryCategory).map((item, index) => <figure className={`gallery-card gallery-card-${index % 8}`} key={item.image}><div className="gallery-image"><Image src={`${base}/images/menu/${item.image}.webp`} alt={item.label[languageIndex]} fill sizes="(max-width: 560px) 45vw, (max-width: 900px) 30vw, 22vw" /></div><figcaption><span>{String(index + 1).padStart(2, "0")}</span>{item.label[languageIndex]}</figcaption></figure>)}</div>
-      </div></section>
 
       <section id="cats" className="cat-section section-pad"><div className="shell cat-layout"><div className="cat-illustration"><p className="eyebrow">{t("TU RZĄDZĄ KOTY", "THE CATS ARE IN CHARGE HERE")}</p><Cat /><p>{t("Mniej pośpiechu.", "Less rushing.")}<br /><em>{t("Więcej mrrrr.", "More purrrr.")}</em></p><span className="cat-age">12+</span><span className="cat-tiny-paw"><PawPrint size={42} strokeWidth={1} /></span></div>
         <div className="cat-copy"><p className="eyebrow">{t("GOŚCIE W KOCIM ŚWIECIE", "GUESTS IN A CAT’S WORLD")}</p><h2>{t("Ich dom.", "Their home.")}<br /><em>{t("Twoja miła chwila.", "Your happy place.")}</em></h2><p>{t("Kocia Strefa to spokojne miejsce dla gości od 12. roku życia. Dajmy kotom przestrzeń i pozwólmy im decydować, kiedy mają ochotę na towarzystwo.", "The Cat Zone is a calm space for guests aged 12 and over. Give the cats room and let them decide when they would like some company.")}</p><ol className="cat-steps">{[
