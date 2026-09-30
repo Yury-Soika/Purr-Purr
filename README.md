@@ -28,7 +28,7 @@ From the sibling `plex-demo` project, `npm run build:landings -- purr-purr` rebu
 
 - `app/menu.ts`: selected menu entries, variants, prices, and three-language translations.
 - `app/i18n`: typed locale definitions and centralized Russian vocabulary, following the main PlexRS language pattern.
-- `app/page.tsx`: bilingual copy and contact links.
+- `app/page.tsx`: trilingual page copy, persistent language selection, and contact links.
 - `public/menu-purr-purr.pdf`: original, unchanged, 21-page menu supplied by the user.
 - `public/images`: photographs extracted from that PDF and optimized as WebP. These are actual café menu images, not synthetic venue photography.
 - The decorative sleeping cat is an original SVG illustration, not a portrait of a particular resident cat.
@@ -38,6 +38,6 @@ The demo explicitly identifies itself as an independent, unofficial concept and 
 
 Local fonts are Inter and Playfair Display, distributed under the SIL Open Font License. See `public/fonts/OFL-*.txt`.
 
-## Verified release — 2026-09-29
+## Verified release — 2026-09-30
 
-Production build, ESLint and TypeScript pass. Browser checks passed locally and on the live domain: Polish/English copy and document language, all five menu filters, PDF download, phone link, mobile navigation, loaded images, hub card, and no horizontal overflow at 320, 390, 768 and 1024 px. No JavaScript errors or failed HTTP responses were observed in those flows. Existing hub project routes also returned HTTP 200.
+Production build, ESLint and TypeScript pass. Browser checks passed locally and on the live domain: Polish/English/Russian switching, persisted language choice, matching document language, all five Russian menu categories, Cyrillic copy and local fonts, mobile navigation, and no horizontal overflow from 320 through 1440 px. No JavaScript errors or failed HTTP responses were observed. The demo-hub card shows PL / EN / RU and remains project 11 of 14.
