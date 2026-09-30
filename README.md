@@ -30,7 +30,7 @@ From the sibling `plex-demo` project, `npm run build:landings -- purr-purr` rebu
 - `app/i18n`: typed locale definitions and centralized Russian vocabulary, following the main PlexRS language pattern.
 - `app/page.tsx`: trilingual page copy, persistent language selection, and contact links.
 - `public/menu-purr-purr.pdf`: original, unchanged, 21-page menu supplied by the user.
-- `public/images`: photographs extracted from that PDF and optimized as WebP. These are actual café menu images, not synthetic venue photography.
+- `public/images/menu`: all 34 distinct food and drink photographs extracted from the Polish half of the PDF and optimized as WebP. Repeated English-page artwork and decorative line art are not duplicated. These are actual café menu images, not synthetic venue photography.
 - The decorative sleeping cat is an original SVG illustration, not a portrait of a particular resident cat.
 - `CONTENT_SOURCES.md`: source provenance and unverified information.
 
@@ -40,4 +40,4 @@ Local fonts are Inter and Playfair Display, distributed under the SIL Open Font 
 
 ## Verified release — 2026-09-30
 
-Production build, ESLint and TypeScript pass. Browser checks passed locally and on the live domain: Polish/English/Russian switching, persisted language choice, matching document language, all five Russian menu categories, Cyrillic copy and local fonts, mobile navigation, and no horizontal overflow from 320 through 1440 px. No JavaScript errors or failed HTTP responses were observed. The demo-hub card shows PL / EN / RU and remains project 11 of 14.
+Production build, ESLint and TypeScript pass. The menu includes six sections covering dishes, drinks and the bar list, plus a filterable gallery of all 34 distinct food and drink photographs in the supplied PDF. Browser checks cover Polish/English/Russian switching, persisted language choice, every menu and gallery filter, all image responses, Cyrillic copy and local fonts, mobile navigation, and no horizontal overflow from 320 through 1440 px. No JavaScript errors or failed HTTP responses were observed. The demo-hub card shows PL / EN / RU and remains project 11 of 14.

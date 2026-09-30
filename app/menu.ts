@@ -6,6 +6,7 @@ export const categories = [
   { id: "coffee", label: ["Kawa i matcha", "Coffee & matcha", "Кофе и матча"] },
   { id: "sweet", label: ["Coś słodkiego", "Sweet things", "Что-нибудь сладкое"] },
   { id: "cold", label: ["Na orzeźwienie", "Something refreshing", "Освежающие напитки"] },
+  { id: "bar", label: ["Bar", "Bar", "Бар"] },
 ] as const;
 export type Category = typeof categories[number]["id"];
 export const menu: Record<Category, MenuItem[]> = {
@@ -26,12 +27,16 @@ export const menu: Record<Category, MenuItem[]> = {
     { name: "Miso · 400 ml", ru: "Мисо · 400 мл", description: ["Wege 26 / z łososiem 31. Do tego? Kimchi lub wakame po 15 zł.", "Veggie 26 / salmon 31. Something on the side? Kimchi or wakame, 15 zł each.", "Овощной 26 / с лососем 31. Добавить кимчи или вакаме — по 15 zł."], price: "26–31" },
   ],
   coffee: [
+    { name: "Espresso przy barze", en: "Espresso at the bar", ru: "Эспрессо у стойки", description: ["Szybkie espresso wypite na stojąco przy barze.", "A quick espresso enjoyed standing at the bar.", "Быстрый эспрессо, который можно выпить у стойки."], price: "7" },
     { name: "Espresso doppio", ru: "Двойной эспрессо", description: ["Podwójne espresso z ziaren warszawskiej palarni HAYB.", "Double espresso with beans from Warsaw roastery HAYB.", "Двойной эспрессо из зёрен варшавской обжарки HAYB."], price: "12" },
     { name: "Cappuccino / Flat White", ru: "Капучино / флэт уайт", description: ["Twoja codzienna chwila z kawą. Każda po 20 zł.", "Your everyday coffee moment. 20 zł each.", "Ваш ежедневный кофейный ритуал. Каждый напиток — 20 zł."], price: "20" },
     { name: "Latte", ru: "Латте", description: ["Ciepłe 24 / mrożone 25.", "Hot 24 / iced 25.", "Горячий 24 / холодный 25."], price: "24–25" },
     { name: "Kwiatowe Latte", en: "Flower Latte", ru: "Цветочный латте", description: ["Róża, lawenda, jaśmin lub poziomka. S 24 / L 28.", "Rose, lavender, jasmine or wild strawberry. S 24 / L 28.", "Роза, лаванда, жасмин или земляника. S 24 / L 28."], price: "24–28" },
     { name: "Matcha Latte", ru: "Матча-латте", description: ["Moya Matcha. S 24 / L 27. Z owocową nutą: S 27 / L 29.", "Moya Matcha. S 24 / L 27. With a fruity twist: S 27 / L 29.", "Moya Matcha. S 24 / L 27. С фруктовой нотой: S 27 / L 29."], price: "24–29" },
     { name: "Hojicha Latte", ru: "Ходзича-латте", description: ["Prażona herbata z syropem klonowym. S 24 / L 28.", "Roasted tea with maple syrup. S 24 / L 28.", "Обжаренный чай с кленовым сиропом. S 24 / L 28."], price: "24–28" },
+    { name: "Szybki Przelew", en: "Batch Brew", ru: "Фильтр-кофе", description: ["160 ml 15 / 300 ml 20.", "160 ml 15 / 300 ml 20.", "160 мл 15 / 300 мл 20."], price: "15–20" },
+    { name: "Drip / Aeropress", ru: "Дрип / Аэропресс", description: ["Ręcznie parzona kawa, 250 ml.", "Hand-brewed coffee, 250 ml.", "Кофе ручного заваривания, 250 мл."], price: "22" },
+    { name: "Czekolada", en: "Hot chocolate", ru: "Горячий шоколад", description: ["Klasyczna 26 / z piernikiem 27.", "Classic 26 / gingerbread 27.", "Классический 26 / с пряником 27."], price: "26–27" },
   ],
   sweet: [
     { name: "Taiyaki milk choco", ru: "Тайяки с молочным шоколадом", description: ["Dwie japońskie rybki z mleczną czekoladą.", "Two Japanese fish-shaped treats with milk chocolate.", "Две японские рыбки с молочным шоколадом."], price: "27" },
@@ -47,5 +52,22 @@ export const menu: Record<Category, MenuItem[]> = {
     { name: "Ice Tea", ru: "Холодный чай", description: ["Z cukrem trzcinowym i cytryną 26 / z truskawkowym purée 27.", "With cane sugar and lemon 26 / strawberry purée 27.", "С тростниковым сахаром и лимоном 26 / с клубничным пюре 27."], price: "26–27" },
     { name: "Kohiniada", en: "Kohinade", ru: "Кохинада", description: ["Orzeźwiająca lemoniada z espresso.", "Refreshing lemonade with espresso.", "Освежающий лимонад с эспрессо."], price: "26" },
     { name: "Świeży sok pomarańczowy", en: "Fresh orange juice", ru: "Свежий апельсиновый сок", description: ["Świeżo wyciskany, 250 ml.", "Freshly squeezed, 250 ml.", "Свежевыжатый, 250 мл."], price: "24" },
+    { name: "Herbata", en: "Tea", ru: "Чай", description: ["Biała, czarna, zielona lub owocowa, 350 ml. Zapytaj obsługę o dostępne smaki.", "White, black, green or fruit tea, 350 ml. Ask the team about available flavors.", "Белый, чёрный, зелёный или фруктовый чай, 350 мл. Спросите команду о доступных вкусах."], price: "23" },
+  ],
+  bar: [
+    { name: "Domus Vini Primitivo Salento", ru: "Domus Vini Primitivo Salento", description: ["Czerwone wino, Włochy. Kieliszek 150 ml 20 / karafka 0,5 l 56.", "Red wine, Italy. 150 ml glass 20 / 0.5 l carafe 56.", "Красное вино, Италия. Бокал 150 мл 20 / графин 0,5 л 56."], price: "20–56" },
+    { name: "San Filippo Passerina", ru: "San Filippo Passerina", description: ["Białe wino biologiczne, Włochy. Kieliszek 150 ml 20 / karafka 0,5 l 56.", "Organic white wine, Italy. 150 ml glass 20 / 0.5 l carafe 56.", "Органическое белое вино, Италия. Бокал 150 мл 20 / графин 0,5 л 56."], price: "20–56" },
+    { name: "Raventos Rosell Cava Brut", description: ["Wino bąbelkowe, Hiszpania. Kieliszek 150 ml 23 / butelka 111.", "Sparkling wine, Spain. 150 ml glass 23 / bottle 111.", "Игристое вино, Испания. Бокал 150 мл 23 / бутылка 111."], price: "23–111" },
+    { name: "Makkoli", ru: "Макколи", description: ["Koreańskie wino ryżowe 0,75 l. Kieliszek 18 / butelka 49.", "Korean rice wine, 0.75 l. Glass 18 / bottle 49.", "Корейское рисовое вино, 0,75 л. Бокал 18 / бутылка 49."], price: "18–49" },
+    { name: "Soju", ru: "Соджу", description: ["Koreańska wódka, butelka 0,35 l.", "Korean spirit, 0.35 l bottle.", "Корейский крепкий напиток, бутылка 0,35 л."], price: "51" },
+    { name: "Choya", description: ["Japońskie wino śliwkowe 0,5 l. Kieliszek 28 / butelka 71.", "Japanese plum wine, 0.5 l. Glass 28 / bottle 71.", "Японское сливовое вино, 0,5 л. Бокал 28 / бутылка 71."], price: "28–71" },
+    { name: "Zimowe trio", en: "Winter trio", ru: "Зимнее трио", description: ["Purrrr Grzaniec, gorący cydr lub gorąca Choya, 150 ml.", "Purrrr hot wine, hot cider or hot Choya, 150 ml.", "Глинтвейн Purrrr, горячий сидр или горячая Choya, 150 мл."], price: "28" },
+    { name: "Aperol Meowitz", description: ["Alkoholowy lub bezalkoholowy.", "Alcoholic or alcohol-free.", "Алкогольный или безалкогольный."], price: "35" },
+    { name: "Tipsy Panda", description: ["Białe wino, tonik różany, truskawkowe purée, sok z cytryny i mięta.", "White wine, rose tonic, strawberry purée, lemon juice and mint.", "Белое вино, розовый тоник, клубничное пюре, лимонный сок и мята."], price: "35" },
+    { name: "Fizzy Meow Daiquiri", description: ["Wino śliwkowe, yuzu purée i soda.", "Plum wine, yuzu purée and soda.", "Сливовое вино, пюре юдзу и содовая."], price: "35" },
+    { name: "Maya Chiller", description: ["Wino bąbelkowe, tonik, koreańska wódka, mango purée i limonka.", "Sparkling wine, tonic, Korean spirit, mango purée and lime.", "Игристое вино, тоник, корейский крепкий напиток, пюре манго и лайм."], price: "35" },
+    { name: "Green Choya", description: ["Wino śliwkowe, Moya Matcha i sok limonkowy.", "Plum wine, Moya Matcha and lime juice.", "Сливовое вино, Moya Matcha и сок лайма."], price: "35" },
+    { name: "Iki · zielona herbata", en: "Iki · green tea", ru: "Iki · зелёный чай", description: ["330 ml. Yuzu, pieprz, imbir lub 0%.", "330 ml. Yuzu, pepper, ginger or 0%.", "330 мл. Юдзу, перец, имбирь или 0%."], price: "20" },
+    { name: "Piwa kraftowe", en: "Craft beer", ru: "Крафтовое пиво", description: ["Rotacyjny wybór od AleBrowar, Trzech Kumpli i Funky Fluid, także 0%.", "A rotating selection from AleBrowar, Trzech Kumpli and Funky Fluid, including 0%.", "Меняющийся выбор от AleBrowar, Trzech Kumpli и Funky Fluid, включая 0%."], price: "17–25" },
   ],
 };

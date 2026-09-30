@@ -10,7 +10,18 @@ User supplied `/Users/puma/Desktop/f8d68c1b-9cb8-4ce3-b474-7518d0e04f7f.pdf` (21
 - Pages 4–10 and 14–20: food, drinks, desserts and prices. Drinks columns were visually checked on page 9 because extracted text does not preserve their order.
 - Page 9: HAYB coffee and Moya Matcha.
 
-Food photographs extracted from the supplied menu: taiyaki (xref 29), Monday lunch (xref 281), flower latte (xref 998). The full PDF is the authoritative supplied menu; this site is a selected, browsable summary. Prices are not asserted as live.
+The site now includes all 34 distinct food and drink photographs embedded in the Polish half of the supplied menu. The repeated English pages reuse the same embedded image objects and are not duplicated. Decorative backgrounds, paw prints, lines, utensils and title artwork were excluded from the food gallery.
+
+- Page 1: taiyaki (xref 29).
+- Page 3: five weekday lunch sets (xrefs 281, 287, 297, 301, 384).
+- Page 4: two Purramen variants, Stir-fry Soba, Jjajangmyeon, kimchi and three Eggdrop variants (xrefs 413, 472, 477, 492, 509, 514, 519, 528).
+- Page 5: Small Bibimbap, Tornado Bibimbap and gochujang sauce (xrefs 568, 573, 668).
+- Page 6: wakame, miso, kimchi, kimbap and mandu (xrefs 684, 689, 694, 704, 765).
+- Page 7: onigiri and inarizushi (xrefs 790, 813).
+- Page 8: soft ice cream, two affogato variants and four Cloud Float variants (xrefs 863, 868, 872, 876, 881, 886, 891).
+- Page 9: three floral latte photographs (xrefs 998, 1003, 1008).
+
+The extracted photographs are trimmed, resized only when larger than the site needs, and encoded as WebP. The unchanged PDF remains the authoritative supplied menu; prices are not asserted as live.
 
 ## Public contact sources
 

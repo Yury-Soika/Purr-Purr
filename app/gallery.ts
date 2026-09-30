@@ -1,0 +1,48 @@
+export type GalleryCategory = "all" | "lunch" | "mains" | "bites" | "desserts" | "drinks";
+export type LocalizedLabel = [string, string, string];
+
+export const galleryCategories: { id: GalleryCategory; label: LocalizedLabel }[] = [
+  { id: "all", label: ["Wszystko", "Everything", "Всё"] },
+  { id: "lunch", label: ["Zestawy lunchowe", "Lunch sets", "Обеденные сеты"] },
+  { id: "mains", label: ["Dania główne", "Main dishes", "Основные блюда"] },
+  { id: "bites", label: ["Mały głód", "Little bites", "Закуски"] },
+  { id: "desserts", label: ["Desery", "Desserts", "Десерты"] },
+  { id: "drinks", label: ["Napoje", "Drinks", "Напитки"] },
+];
+
+export const galleryItems: { image: string; category: Exclude<GalleryCategory, "all">; label: LocalizedLabel }[] = [
+  { image: "taiyaki", category: "desserts", label: ["Taiyaki · dwa smaki", "Taiyaki · two flavors", "Тайяки · два вкуса"] },
+  { image: "lunch-bibimbap", category: "lunch", label: ["Poniedziałek · Bibimbap", "Monday · Bibimbap", "Понедельник · Пибимпаб"] },
+  { image: "lunch-kimbap", category: "lunch", label: ["Wtorek · Kimbap", "Tuesday · Kimbap", "Вторник · Кимбап"] },
+  { image: "lunch-soba", category: "lunch", label: ["Środa · Stir-fry Soba", "Wednesday · Stir-fry Soba", "Среда · Стир-фрай соба"] },
+  { image: "lunch-mandu", category: "lunch", label: ["Czwartek · Mandu", "Thursday · Mandu", "Четверг · Манду"] },
+  { image: "lunch-purramen", category: "lunch", label: ["Piątek · Purramen", "Friday · Purramen", "Пятница · Purramen"] },
+  { image: "purramen-tofu", category: "mains", label: ["Shoyu Purramen · tofu inari", "Shoyu Purramen · inari tofu", "Shoyu Purramen · тофу инари"] },
+  { image: "purramen-pork", category: "mains", label: ["Shoyu Purramen · wieprzowina", "Shoyu Purramen · pork", "Shoyu Purramen · свинина"] },
+  { image: "stir-fry-soba", category: "mains", label: ["Stir-fry Soba", "Stir-fry Soba", "Стир-фрай соба"] },
+  { image: "jjajangmyeon", category: "mains", label: ["Jjajangmyeon", "Jjajangmyeon", "Чачжанмён"] },
+  { image: "small-bibimbap", category: "mains", label: ["Mały Bibimbap", "Small Bibimbap", "Малый пибимпаб"] },
+  { image: "tornado-bibimbap", category: "mains", label: ["Tornado Bibimbap", "Tornado Bibimbap", "Торнадо пибимпаб"] },
+  { image: "gochujang", category: "mains", label: ["Sos gochujang", "Gochujang sauce", "Соус кочуджан"] },
+  { image: "eggdrop-kimchi", category: "mains", label: ["Eggdrop · kimchi", "Eggdrop · kimchi", "Eggdrop · кимчи"] },
+  { image: "eggdrop-chicken", category: "mains", label: ["Eggdrop · kurczak teriyaki", "Eggdrop · teriyaki chicken", "Eggdrop · курица терияки"] },
+  { image: "eggdrop-beef", category: "mains", label: ["Eggdrop · wołowina bulgogi", "Eggdrop · bulgogi beef", "Eggdrop · говядина пулькоги"] },
+  { image: "miso", category: "bites", label: ["Zupa miso", "Miso soup", "Суп мисо"] },
+  { image: "wakame", category: "bites", label: ["Wakame", "Wakame", "Вакаме"] },
+  { image: "kimchi", category: "bites", label: ["Kimchi", "Kimchi", "Кимчи"] },
+  { image: "kimchi-side", category: "bites", label: ["Kimchi · dodatek", "Kimchi · side", "Кимчи · гарнир"] },
+  { image: "kimbap-roll", category: "bites", label: ["Kimbap roll", "Kimbap roll", "Ролл кимбап"] },
+  { image: "mandu", category: "bites", label: ["Mandu", "Mandu", "Манду"] },
+  { image: "onigiri", category: "bites", label: ["Onigiri", "Onigiri", "Онигири"] },
+  { image: "inarizushi", category: "bites", label: ["Inarizushi", "Inarizushi", "Инаридзуси"] },
+  { image: "soft-ice-cream", category: "desserts", label: ["Lody włoskie", "Soft ice cream", "Мягкое мороженое"] },
+  { image: "affogato-matcha", category: "desserts", label: ["Affogato · matcha", "Affogato · matcha", "Аффогато · матча"] },
+  { image: "affogato-espresso", category: "desserts", label: ["Affogato · espresso", "Affogato · espresso", "Аффогато · эспрессо"] },
+  { image: "cloud-blueberry", category: "desserts", label: ["Cloud Float · jagodzianka", "Cloud Float · blueberry", "Cloud Float · черника"] },
+  { image: "cloud-cherry", category: "desserts", label: ["Cloud Float · wiśnia", "Cloud Float · sour cherry", "Cloud Float · вишня"] },
+  { image: "cloud-berry", category: "desserts", label: ["Cloud Float · poziomka", "Cloud Float · wild strawberry", "Cloud Float · земляника"] },
+  { image: "cloud-mango", category: "desserts", label: ["Cloud Float · mango", "Cloud Float · mango", "Cloud Float · манго"] },
+  { image: "flower-latte-gold", category: "drinks", label: ["Kwiatowe Latte · złote", "Flower Latte · golden", "Цветочный латте · золотой"] },
+  { image: "flower-latte-red", category: "drinks", label: ["Kwiatowe Latte · czerwone", "Flower Latte · red", "Цветочный латте · красный"] },
+  { image: "flower-latte-rose", category: "drinks", label: ["Kwiatowe Latte · róża", "Flower Latte · rose", "Цветочный латте · роза"] },
+];
