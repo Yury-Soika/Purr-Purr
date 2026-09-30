@@ -4,7 +4,7 @@ Live preview: https://demo.plexrs.com/purr-purr/
 
 Repository: https://github.com/Yury-Soika/Purr-Purr
 
-Independent Polish/English landing-page concept for Purr Purr in Warsaw. Next.js App Router, TypeScript and Tailwind CSS 4. No booking backend, analytics, or third-party image/font dependencies.
+Independent Polish/English/Russian landing-page concept for Purr Purr in Warsaw. Next.js App Router, TypeScript and Tailwind CSS 4. No booking backend, analytics, or third-party image/font dependencies.
 
 ## Run
 
@@ -26,7 +26,8 @@ From the sibling `plex-demo` project, `npm run build:landings -- purr-purr` rebu
 
 ## Content
 
-- `app/menu.ts`: selected menu entries, variants, prices, and translations.
+- `app/menu.ts`: selected menu entries, variants, prices, and three-language translations.
+- `app/i18n`: typed locale definitions and centralized Russian vocabulary, following the main PlexRS language pattern.
 - `app/page.tsx`: bilingual copy and contact links.
 - `public/menu-purr-purr.pdf`: original, unchanged, 21-page menu supplied by the user.
 - `public/images`: photographs extracted from that PDF and optimized as WebP. These are actual café menu images, not synthetic venue photography.

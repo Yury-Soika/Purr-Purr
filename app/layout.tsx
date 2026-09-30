@@ -5,12 +5,15 @@ import "./globals.css";
 const display = localFont({ src: [
   { path: "../public/fonts/playfair-display-latin-400-normal.woff2", weight: "400", style: "normal" },
   { path: "../public/fonts/playfair-display-latin-ext-400-normal.woff2", weight: "400", style: "normal" },
+  { path: "../public/fonts/playfair-display-cyrillic-400-normal.woff2", weight: "400", style: "normal" },
   { path: "../public/fonts/playfair-display-latin-400-italic.woff2", weight: "400", style: "italic" },
   { path: "../public/fonts/playfair-display-latin-ext-400-italic.woff2", weight: "400", style: "italic" },
+  { path: "../public/fonts/playfair-display-cyrillic-400-italic.woff2", weight: "400", style: "italic" },
 ], variable: "--font-display", display: "swap" });
 const sans = localFont({ src: [
   { path: "../public/fonts/inter-latin-400-normal.woff2", weight: "400", style: "normal" },
   { path: "../public/fonts/inter-latin-ext-400-normal.woff2", weight: "400", style: "normal" },
+  { path: "../public/fonts/inter-cyrillic-400-normal.woff2", weight: "400", style: "normal" },
 ], variable: "--font-sans", display: "swap" });
 const base = process.env.NEXT_PUBLIC_BASE_PATH || process.env.DEMO_BASE_PATH || "";
 export const metadata: Metadata = {

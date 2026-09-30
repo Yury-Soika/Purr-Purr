@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowDown, ArrowDownToLine, ArrowUpRight, Coffee, Heart, MapPin, Menu as MenuIcon, Phone, PawPrint, Instagram, X, Leaf } from "lucide-react";
 import { categories, menu, type Category, type Lang } from "./menu";
+import { HTML_LANG, LANG_LABELS, LANGS } from "./i18n/types";
+import { ruVocabulary } from "./i18n/ru";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || process.env.DEMO_BASE_PATH || "";
 const instagram = "https://www.instagram.com/purrpurr.wawa/";
 const facebook = "https://www.facebook.com/Purr.Purr.Cat.Cafe.Warsaw/";
 const maps = "https://www.google.com/maps/search/?api=1&query=Purr+Purr+Pokorna+2+Warszawa";
+const storageKey = "purr_purr_lang";
 
 function Cat({ className = "" }: { className?: string }) {
   return <svg className={className} viewBox="0 0 320 200" fill="none" aria-hidden="true">
@@ -27,8 +30,22 @@ export default function Home() {
   const [category, setCategory] = useState<Category>("bowls");
   const [navOpen, setNavOpen] = useState(false);
   const en = lang === "en";
-  const t = (pl: string, english: string) => en ? english : pl;
-  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  const ru = lang === "ru";
+  const languageIndex = lang === "pl" ? 0 : lang === "en" ? 1 : 2;
+  const t = (pl: string, english: string) => ru ? (ruVocabulary[pl] ?? pl) : en ? english : pl;
+  const changeLanguage = (next: Lang) => {
+    setLang(next);
+    try { window.localStorage.setItem(storageKey, next); } catch { /* ignore storage errors */ }
+  };
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(storageKey);
+      // The first client render restores the visitor's explicit language choice.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (saved && LANGS.includes(saved as Lang)) setLang(saved as Lang);
+    } catch { /* ignore storage errors */ }
+  }, []);
+  useEffect(() => { document.documentElement.lang = HTML_LANG[lang]; }, [lang]);
   useEffect(() => {
     if (!navOpen) return;
     const close = (event: KeyboardEvent) => { if (event.key === "Escape") setNavOpen(false); };
@@ -39,12 +56,12 @@ export default function Home() {
 
   return <>
     <a href="#main" className="skip-link">{t("Przejdź do treści", "Skip to content")}</a>
-    <div className="topbar"><span>{t("Mała przerwa. Dużo mruczenia.", "A little pause. A lot of purring.")}</span><span className="topbar-location">WARSZAWA · MURANÓW</span></div>
+    <div className="topbar"><span>{t("Mała przerwa. Dużo mruczenia.", "A little pause. A lot of purring.")}</span><span className="topbar-location">{t("WARSZAWA · MURANÓW", "WARSAW · MURANÓW")}</span></div>
     <header className="header">
       <div className="shell nav-row">
-        <a href="#" className="brand" aria-label="Purr Purr"><PawPrint strokeWidth={1.5} /><span>purr purr<span className="brand-sub">CAT CAFÉ & ASIAN KITCHEN</span></span></a>
+        <a href="#" className="brand" aria-label="Purr Purr"><PawPrint strokeWidth={1.5} /><span>purr purr<span className="brand-sub">{t("KOCIA KAWIARNIA I KUCHNIA AZJATYCKA", "CAT CAFÉ & ASIAN KITCHEN")}</span></span></a>
         <nav className="desktop-nav" aria-label={t("Nawigacja główna", "Main navigation")}>{nav.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}</nav>
-        <div className="nav-actions"><div className="language" aria-label={t("Język strony", "Site language")}><button aria-pressed={!en} onClick={() => setLang("pl")}>PL</button><span>/</span><button aria-pressed={en} onClick={() => setLang("en")}>EN</button></div><a className="nav-visit" href="#visit">{t("Wpadnij do nas", "Come say hello")} <ArrowUpRight size={15} /></a><button className="mobile-toggle" onClick={() => setNavOpen(!navOpen)} aria-expanded={navOpen} aria-controls="mobile-nav" aria-label={navOpen ? t("Zamknij nawigację", "Close navigation") : t("Otwórz nawigację", "Open navigation")}>{navOpen ? <X /> : <MenuIcon />}</button></div>
+        <div className="nav-actions"><div className="language" aria-label={t("Język strony", "Site language")}>{LANGS.map((code, index) => <span className="language-option" key={code}><button aria-pressed={lang === code} onClick={() => changeLanguage(code)}>{LANG_LABELS[code]}</button>{index < LANGS.length - 1 && <span aria-hidden="true">/</span>}</span>)}</div><a className="nav-visit" href="#visit">{t("Wpadnij do nas", "Come say hello")} <ArrowUpRight size={15} /></a><button className="mobile-toggle" onClick={() => setNavOpen(!navOpen)} aria-expanded={navOpen} aria-controls="mobile-nav" aria-label={navOpen ? t("Zamknij nawigację", "Close navigation") : t("Otwórz nawigację", "Open navigation")}>{navOpen ? <X /> : <MenuIcon />}</button></div>
       </div>
       {navOpen && <nav id="mobile-nav" className="mobile-nav" aria-label={t("Nawigacja mobilna", "Mobile navigation")}>{nav.map(([id, label]) => <a key={id} href={`#${id}`} onClick={() => setNavOpen(false)}>{label}<ArrowUpRight size={18} /></a>)}</nav>}
     </header>
@@ -59,18 +76,18 @@ export default function Home() {
         </div>
         <div className="hero-art">
           <div className="hero-photo"><Image src={`${base}/images/taiyaki.webp`} alt={t("Taiyaki Purr Purr — japońskie słodkości na pomarańczowym fotelu", "Purr Purr taiyaki — Japanese treats on an orange armchair")} fill priority sizes="(max-width: 760px) 90vw, 45vw" /></div>
-          <div className="round-stamp"><PawPrint size={27} strokeWidth={1.4} /><span>{t("kawa · koty", "coffee · cats")}<br />& comfort food</span></div>
+          <div className="round-stamp"><PawPrint size={27} strokeWidth={1.4} /><span>{t("kawa · koty", "coffee · cats")}<br />{t("i comfort food", "& comfort food")}</span></div>
           <div className="cat-note"><Cat /><span>{t("tu można zwolnić", "slow days, happy paws")}</span><Heart size={15} /></div>
           <span className="hero-sparkle" aria-hidden="true">✳</span>
         </div>
         <a href="#about" className="scroll-cue"><ArrowDown size={15} /> {t("ROZGOŚĆ SIĘ", "MAKE YOURSELF AT HOME")}</a>
       </section>
 
-      <div className="ribbon" aria-hidden="true"><span>HAYB SPECIALTY COFFEE</span><PawPrint /><span>MOYA MATCHA</span><PawPrint /><span>ASIAN COMFORT FOOD</span><PawPrint /><span>{t("DOBRE TOWARZYSTWO", "GOOD COMPANY")}</span><PawPrint /></div>
+      <div className="ribbon" aria-hidden="true"><span>HAYB {t("KAWA SPECIALTY", "SPECIALTY COFFEE")}</span><PawPrint /><span>MOYA MATCHA</span><PawPrint /><span>{t("AZJATYCKIE COMFORT FOOD", "ASIAN COMFORT FOOD")}</span><PawPrint /><span>{t("DOBRE TOWARZYSTWO", "GOOD COMPANY")}</span><PawPrint /></div>
 
       <section id="about" className="about shell section-pad">
         <div><p className="eyebrow">{t("NIE TYLKO KAWIARNIA", "MORE THAN A COFFEE STOP")}</p><h2>{t("Trochę Azji.", "A taste of Asia.")}<br />{t("Dużo ciepła.", "A lot of warmth.")}<br /><em>{t("Całe mnóstwo mruczenia.", "Plenty of purring.")}</em></h2></div>
-        <div className="about-copy"><p>{t("Są miejsca, do których wpadasz po kawę. I takie, w których chcesz zostać trochę dłużej. Purr Purr to zaproszenie do tej drugiej kategorii.", "Some places are for a quick coffee. Others make you want to linger a little longer. Purr Purr is an invitation to do just that.")}</p><p>{t("W menu spotykają się japońskie i koreańskie inspiracje: od onigiri i bibimbapu po matchę i ciepłe taiyaki. A w Kociej Strefie? Czas płynie w kocim tempie.", "Japanese and Korean inspiration meets on the menu: from onigiri and bibimbap to matcha and warm taiyaki. And in the Cat Zone? Time moves at a cat’s pace.")}</p><div className="about-values"><span><Coffee /> Specialty coffee</span><span><Leaf /> {t("Opcje wege", "Veggie options")}</span><span><PawPrint /> {t("Kocia Strefa", "Cat Zone")}</span></div></div>
+        <div className="about-copy"><p>{t("Są miejsca, do których wpadasz po kawę. I takie, w których chcesz zostać trochę dłużej. Purr Purr to zaproszenie do tej drugiej kategorii.", "Some places are for a quick coffee. Others make you want to linger a little longer. Purr Purr is an invitation to do just that.")}</p><p>{t("W menu spotykają się japońskie i koreańskie inspiracje: od onigiri i bibimbapu po matchę i ciepłe taiyaki. A w Kociej Strefie? Czas płynie w kocim tempie.", "Japanese and Korean inspiration meets on the menu: from onigiri and bibimbap to matcha and warm taiyaki. And in the Cat Zone? Time moves at a cat’s pace.")}</p><div className="about-values"><span><Coffee /> {t("Kawa specialty", "Specialty coffee")}</span><span><Leaf /> {t("Opcje wege", "Veggie options")}</span><span><PawPrint /> {t("Kocia Strefa", "Cat Zone")}</span></div></div>
       </section>
 
       <section className="favorites section-pad"><div className="shell"><div className="section-heading"><div><p className="eyebrow">{t("NA CO MASZ DZIŚ OCHOTĘ?", "WHAT ARE YOU IN THE MOOD FOR?")}</p><h2>{t("Małe przyjemności.", "Little pleasures.")} <em>{t("Wielki apetyt.", "Big appetite.")}</em></h2></div><a href="#menu" className="text-link">{t("Zobacz menu", "See the menu")} <ArrowUpRight size={17} /></a></div>
@@ -84,8 +101,8 @@ export default function Home() {
 
       <section id="menu" className="menu-section shell section-pad">
         <div className="section-heading"><div><p className="eyebrow">{t("PROSTO Z NASZEJ KARTY", "STRAIGHT FROM OUR MENU")}</p><h2>{t("Coś dobrego", "Something good")}<br /><em>{t("dla każdego nastroju.", "for every mood.")}</em></h2></div><a className="button outline" href={`${base}/menu-purr-purr.pdf`} target="_blank" rel="noopener noreferrer">{t("Pełne menu PDF · PL / EN", "Full PDF menu · PL / EN")} <ArrowDownToLine size={17} /></a></div>
-        <div className="menu-tabs" role="group" aria-label={t("Kategorie menu", "Menu categories")}>{categories.map(c => <button key={c.id} aria-pressed={category === c.id} onClick={() => setCategory(c.id)}>{c.label[en ? 1 : 0]}</button>)}</div>
-        <div className="menu-items" aria-live="polite" aria-atomic="true">{menu[category].map(item => <article className="menu-item" key={item.name}><div className="menu-item-title"><h3>{en && item.en ? item.en : item.name}</h3><span>{item.price} <small>zł</small></span></div><p>{item.description[en ? 1 : 0]}</p></article>)}</div>
+        <div className="menu-tabs" role="group" aria-label={t("Kategorie menu", "Menu categories")}>{categories.map(c => <button key={c.id} aria-pressed={category === c.id} onClick={() => setCategory(c.id)}>{c.label[languageIndex]}</button>)}</div>
+        <div className="menu-items" aria-live="polite" aria-atomic="true">{menu[category].map(item => <article className="menu-item" key={item.name}><div className="menu-item-title"><h3>{ru && item.ru ? item.ru : en && item.en ? item.en : item.name}</h3><span>{item.price} <small>zł</small></span></div><p>{item.description[languageIndex]}</p></article>)}</div>
         <p className="menu-disclaimer">{t("Wybrane pozycje z dostarczonej karty. Pełna oferta, dodatki i napoje alkoholowe w PDF. Ceny i dostępność potwierdź na miejscu. O alergeny zapytaj obsługę.", "Selected items from the supplied menu. Find the full selection, extras and alcoholic drinks in the PDF. Confirm prices and availability at the café. Ask the team about allergens.")}</p>
         <div className="lunch-banner"><div className="lunch-symbol"><Coffee size={31} strokeWidth={1.2} /></div><div><p className="eyebrow">{t("PONIEDZIAŁEK–PIĄTEK · 12:00–15:00", "MONDAY–FRIDAY · 12:00–15:00")}</p><h3>{t("Przerwa na lunch? Mamy pomysł.", "Lunch break? We have a little idea.")}</h3><p>{t("Danie dnia + miso + Ice Tea + lody. Wersja wege lub mięsna.", "Daily main + miso + Ice Tea + ice cream. Veggie or meat option.")}</p></div><div className="lunch-price">41 / 43 <span>zł</span><small>{t("wege / mięsny", "veggie / meat")}</small></div><a href={`${base}/menu-purr-purr.pdf#page=3`} target="_blank" rel="noopener noreferrer" aria-label={t("Zobacz zestawy lunchowe w PDF", "See lunch sets in the PDF")}><ArrowUpRight size={27} /></a></div>
       </section>
@@ -98,7 +115,7 @@ export default function Home() {
         ].map(([title, text], i) => <li key={title}><span>0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol><a href={`${base}/menu-purr-purr.pdf#page=${en ? "12" : "2"}`} className="text-link" target="_blank" rel="noopener noreferrer">{t("Wskazówki w karcie menu", "Visit guidance in the menu")} <ArrowUpRight size={17} /></a></div>
       </div></section>
 
-      <section id="visit" className="visit shell section-pad"><div className="visit-copy"><p className="eyebrow">{t("DO ZOBACZENIA NA MURANOWIE", "SEE YOU IN MURANÓW")}</p><h2>{t("Wpadnij na kawę.", "Come for coffee.")}<br /><em>{t("Zostań dla klimatu.", "Stay for the feeling.")}</em></h2><p>{t("Na kawę solo, lunch we dwoje albo chwilę z książką. Znajdziesz nas przy ulicy Pokornej, niedaleko metra Dworzec Gdański.", "A solo coffee, lunch for two or a quiet chapter of your book. Find us on Pokorna Street, near Dworzec Gdański metro station.")}</p><div className="visit-address"><MapPin size={24} strokeWidth={1.5} /><div><strong>Pokorna 2/U4</strong><span>00-199 Warszawa · Muranów</span></div></div><div className="visit-buttons"><a href={maps} className="button primary" target="_blank" rel="noopener noreferrer">{t("Pokaż trasę", "Get directions")} <ArrowUpRight size={18} /></a><a className="text-link" href="tel:+48573538888"><Phone size={16} /> +48 573 538 888</a></div></div>
+      <section id="visit" className="visit shell section-pad"><div className="visit-copy"><p className="eyebrow">{t("DO ZOBACZENIA NA MURANOWIE", "SEE YOU IN MURANÓW")}</p><h2>{t("Wpadnij na kawę.", "Come for coffee.")}<br /><em>{t("Zostań dla klimatu.", "Stay for the feeling.")}</em></h2><p>{t("Na kawę solo, lunch we dwoje albo chwilę z książką. Znajdziesz nas przy ulicy Pokornej, niedaleko metra Dworzec Gdański.", "A solo coffee, lunch for two or a quiet chapter of your book. Find us on Pokorna Street, near Dworzec Gdański metro station.")}</p><div className="visit-address"><MapPin size={24} strokeWidth={1.5} /><div><strong>Pokorna 2/U4</strong><span>{t("00-199 Warszawa · Muranów", "00-199 Warsaw · Muranów")}</span></div></div><div className="visit-buttons"><a href={maps} className="button primary" target="_blank" rel="noopener noreferrer">{t("Pokaż trasę", "Get directions")} <ArrowUpRight size={18} /></a><a className="text-link" href="tel:+48573538888"><Phone size={16} /> +48 573 538 888</a></div></div>
         <div className="visit-card"><span className="visit-card-pin" aria-hidden="true" /><p className="eyebrow">{t("ZAPLANUJ SWOJĄ CHWILĘ", "MAKE A LITTLE TIME")}</p><h3>{t("Zanim wpadniesz", "Before you pop in")}</h3><div className="visit-info"><Coffee strokeWidth={1.3} /><div><h4>{t("Godziny i aktualności", "Hours & what’s new")}</h4><p>{t("Aktualne godziny otwarcia i zmiany w menu sprawdź na Instagramie lub telefonicznie.", "Check Instagram or call for current opening hours and menu updates.")}</p></div></div><div className="visit-info"><PawPrint strokeWidth={1.3} /><div><h4>{t("Kocia Strefa: 12+", "Cat Zone: 12+")}</h4><p>{t("O dostępność miejsc i wizyty większą grupą zapytaj obsługę przed przyjściem.", "Ask the team about available space and group visits before you arrive.")}</p></div></div><a href={instagram} target="_blank" rel="noopener noreferrer" className="social-link"><Instagram size={19} /> @purrpurr.wawa <ArrowUpRight size={18} /></a><a href={facebook} target="_blank" rel="noopener noreferrer" className="social-link">Facebook <ArrowUpRight size={18} /></a></div>
       </section>
       <section className="closing"><PawPrint size={24} strokeWidth={1.3} /><p>{t("Dobre rzeczy dzieją się", "Good things happen")} <em>{t("bez pośpiechu.", "when you slow down.")}</em></p><a href={instagram} target="_blank" rel="noopener noreferrer">{t("Codzienność Purr Purr na Instagramie", "A little everyday Purr Purr on Instagram")} <ArrowUpRight size={16} /></a></section>
